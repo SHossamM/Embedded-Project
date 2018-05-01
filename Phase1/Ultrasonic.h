@@ -20,7 +20,7 @@ class Ultrasonic
 {
   public:
     Ultrasonic(int TP, int EP);
-	Ultrasonic(int TP, int EP , int width );
+	Ultrasonic(int TP, int EP , int width ,int type);
 	Ultrasonic(int TP, int EP, long TO);
     long Timing();
     long Ranging(int sys);
