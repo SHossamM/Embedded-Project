@@ -6,7 +6,7 @@ bool parksystem ;
 float velocity = 10.0f ;
 // tp -> 10 
 //ep -> 11
-const int rs = 12, en = 13, d4 = 5, d5 = 4, d6 = 3, d7 = 2, ep = 8, tp = 9;
+const int rs = 12, en = 13, d4 = 1, d5 = 4, d6 = 3, d7 = 2, ep = 8, tp = 9;
 Ultrasonic ult = Ultrasonic(10,11,40/100,1);
 Ultrasonic frontUltrasonic = Ultrasonic(tp,ep,0.3,1); //forward distance is 3cm
 
@@ -26,7 +26,7 @@ void loop() {
   while(!parksystem)
   {
     distance = ult.Ranging(1);
-    if (distance < 40 )
+    if (distance < 4 )
     {
         lcd.clear();
       continue ;
@@ -37,18 +37,18 @@ void loop() {
     while(!parksystem)
     {
       
-      if ( velocity *((millis ()-timer_int)/1000) > 40)
+      if ( velocity *((millis ()-timer_int)/1000) > 40) //state 2 keep check if distance less than  40 cm
       {
         
         Serial.println("  space found  ");
         Serial.println(ult.Ranging(1));
         
-        if(checkForward())
+        if(checkForward()) //state 3
         {
-          displaySlotDetected();
-          parksystem = true ;
+          displaySlotDetected(); //state 4
+          parksystem = true ; //state 5
         }
-        break ;
+        break ; //state 6 "Exit"
       }
         
       distance = ult.Ranging(1) ;
